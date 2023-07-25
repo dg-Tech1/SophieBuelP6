@@ -1,24 +1,20 @@
 // Import de la liste de tous les travaux du FETCH sur l'API, à partir de FETCHDATAS.JS
 import { works } from "./fetchDatas.js";
-// Import de la liste de toutes les catégories de travaux du FETCH sur l'API, à partir de FETCHDATAS.JS
 import { categories } from "./fetchDatas.js";
-// Import de la fonction "editMode" à partir de "editMode.js" permettant d'actualiser la page INDEX.HTML si authentifié.
 import { editMode } from "./editMode.js";
-// Import de la fonction "modale" à partir de "modale.js" permettant de gérer l'affichage de la MODALE dans INDEX.HTML.
 import { modale } from "./modale.js";
-// Export de la fonction "generateGallery" dans "modale.js" pour actualisation de l'affichage des "Galleries" après ajout ou suppression d'un projet.
 export { generateGallery };
 
 
-// Fonction pour générer la gallerie en fonction des filtres de type de travaux.
+// Générer galleries avec différent types de filtres.
 function generateGallery(works) {
-	// Parcours des données WORKS pour les ajouter au HTML (Gallerie de travaux).
+	// Parcours des données "DOM" WORKS pour les ajouter à la div ".gallery".
 	for (let i = 0; i < works.length; i++) {
 
 		const work = works[i];
 		// Récupération de l'élément du DOM qui accueillera les fiches des différents travaux.
 		const sectionGallery = document.querySelector(".gallery");
-		// Création d'une balise dédiée à une fiche de travaux.
+		// Création d'une balise dédiée à une fiche de travaux 	"FIGURE".
 		const galleryElement = document.createElement("figure");
 		galleryElement.dataset.id = work.id;
 		// Création des balises.
@@ -39,7 +35,7 @@ function generateGallery(works) {
 generateGallery(works);
 
 
-// Ajout du bouton filtre "TOUS" au tableau de catégories récupéré sur l'API.
+// Ajout du bouton tous à partir des données de L'API .
 const categoryAll = {"id": 0,"name": "Tous"};
 categories.unshift(categoryAll);
 
