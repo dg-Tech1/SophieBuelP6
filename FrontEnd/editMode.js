@@ -1,4 +1,4 @@
-// Fonction pour récupérer les informations d'authentification à partir du "sessionStorage" et test pour appeler la fonction "editModeActivation" si authentifié.
+Information d'authentification dans le "sessiostorage"appeler la fonction "editModeActivation" si authentifié. 
 export function editMode() {
 	const authentificationState = sessionStorage.getItem("authentificationState");
 
@@ -8,7 +8,7 @@ export function editMode() {
 		editModeActivation("none");
 }};
 
-// Fonction d'actualisation de la page INDEX.HTML en "MODE EDITION" (si authentifié).
+// Actualisation de la page INDEX.HTML en "MODE EDITION" (si authentifié).
 function editModeActivation (state) {
 	const editModeElement = document.querySelectorAll(".edit-mode");
 	
