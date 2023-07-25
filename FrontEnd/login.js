@@ -1,4 +1,4 @@
-// Récupération des informations d'authentification à partir du FORM de LOGIN.HTML
+// FORM de LOGIN.HTML
 const formInfos = document.querySelector("form");
 
 // Fonction d'authentification à partir des informations de l'API
