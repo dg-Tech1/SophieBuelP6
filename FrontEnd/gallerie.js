@@ -1,20 +1,24 @@
 // Import de la liste de tous les travaux du FETCH sur l'API, à partir de FETCHDATAS.JS
 import { works } from "./fetchDatas.js";
+// Import de la liste de toutes les catégories de travaux du FETCH sur l'API, à partir de FETCHDATAS.JS
 import { categories } from "./fetchDatas.js";
+// Import de la fonction "editMode" à partir de "editMode.js" permettant d'actualiser la page INDEX.HTML si authentifié.
 import { editMode } from "./editMode.js";
+// Import de la fonction "modale" à partir de "modale.js" permettant de gérer l'affichage de la MODALE dans INDEX.HTML.
 import { modale } from "./modale.js";
+// Export de la fonction "generateGallery" dans "modale.js" pour actualisation de l'affichage des "Galleries" après ajout ou suppression d'un projet.
 export { generateGallery };
 
 
-// Générer galleries avec différent types de filtres.
+// Fonction pour générer la gallerie en fonction des filtres de type de travaux.
 function generateGallery(works) {
-	// Parcours des données "DOM" WORKS pour les ajouter à la div ".gallery".
+	// Parcours des données WORKS pour les ajouter au HTML (Gallerie de travaux).
 	for (let i = 0; i < works.length; i++) {
 
 		const work = works[i];
 		// Récupération de l'élément du DOM qui accueillera les fiches des différents travaux.
 		const sectionGallery = document.querySelector(".gallery");
-		// Création d'une balise dédiée à une fiche de travaux 	"FIGURE".
+		// Création d'une balise dédiée à une fiche de travaux.
 		const galleryElement = document.createElement("figure");
 		galleryElement.dataset.id = work.id;
 		// Création des balises.
@@ -32,12 +36,12 @@ function generateGallery(works) {
 	};
 };
 
-generateGallery(works);
+generateGallery(works); //extrait un travail spécifique de la liste des travaux à l'indice i pour pouvoir le manipuler ultérieurement.
 
 
-// Ajout du bouton tous à partir des données de L'API .
+// Ajout du bouton filtre "TOUS" au tableau de catégories récupéré sur l'API. //------------------------Bouton--------------------------
 const categoryAll = {"id": 0,"name": "Tous"};
-categories.unshift(categoryAll);
+categories.unshift(categoryAll);   
 
 
 // Parcours des données de CATEGORIES pour les ajouter au HTML et créer les "boutons de catégories" (Filtres des types de travaux).
@@ -57,7 +61,7 @@ for (let i = 0; i < categories.length; i++) {
 };
 
 
-// Fonction de "Filtrage des projets" de la "Gallery" à l'aide des boutons de "Catégories"
+// Fonction de "Filtrage des projets" de la "Gallery" à l'aide des boutons de "Catégories" //--------------------------------filtre--------------
 function categoryFilter(categoryButtonId) {
 
 	if (categoryButtonId == categoryAll.id) {
