@@ -6,7 +6,7 @@ import { categories } from "./fetchDatas.js";
 import { generateGallery } from "./gallerie.js"
 
 
-// Fonction permettant la gestion de l'ouverture et fermeture de la MODALE en "EDITMODE".
+// Fonction permettant la gestion de l'ouverture et fermeture de la MODALE en "EDITMODE".--------------------------------------------------------
 export function modale() {
 
 	const openModalButton = document.querySelectorAll(".open-modal-button");
@@ -15,8 +15,8 @@ export function modale() {
 
 	// Ajout des Listener pour ouvrir la modale (Boutons "Publier les changements" et "Modifier" à côté de Mes Projets).
 	for(let i = 0; i < openModalButton.length; i++){
-		openModalButton[i].addEventListener("click", function() {
-		modal.style.display = "flex";
+		openModalButton[i].addEventListener("click", function() {   // boucle ajoute des écouteurs d'événements aux boutons "open-modal-button" qui, 
+		modal.style.display = "flex";           //lorsqu'ils sont cliqués, font apparaître la modale en ajustant son style pour afficher ("flex").
 		});
 	};
 
@@ -30,13 +30,13 @@ export function modale() {
 	// Ajout d'un écouteur d'événement pour fermer la modale en cliquant à l'extérieur de celle-ci.
 	modal.addEventListener("click", function(event) {
 		if (event.target === modal) {
-			modal.style.display = "none";
+			modal.style.display = "none";     // clique à l'extérieur de la modale qui masquera la modale
 		};
 	});
 };
 
 
-// Définition du fonctionnement du bouton "RETURN" de la partie "Ajout de projet" de la "MODALE".
+// Définition du fonctionnement du bouton "RETURN" de la partie "Ajout de projet" de la "MODALE".--------------------------------------------------
 const returnModalButton = document.querySelector(".return-modal-button");
 
 returnModalButton.addEventListener("click", function() {
@@ -50,7 +50,7 @@ returnModalButton.addEventListener("click", function() {
 
 // Génération de la "GALLERY" de la MODALE.
 
-// Fonction pour générer la "GALLERY" de la MODALE.
+// Fonction pour générer la "GALLERY" de la MODALE.---------------------------------------------------------------------------------------------
 function generateGalleryModale(works) {
 	// Parcours des données WORKS pour les ajouter au HTML de la MODALE.
 	for (let i = 0; i < works.length; i++) {
@@ -94,10 +94,10 @@ function generateGalleryModale(works) {
 	};
 };
 
-generateGalleryModale(works);
+generateGalleryModale(works); //Cela génère la galerie dans la modale en ajoutant des éléments HTML correspondant aux travaux contenus dans la variable works
 
 
-// Récupération du Token d'authentification.
+// Récupération du Token d'authentification.-----------------------------------------------------------------------------------------------------
 const authentificationToken = sessionStorage.getItem("authentificationToken");
 
 // Fonction de "Suppresion" de projet de la "Gallery" "Modale".
@@ -107,8 +107,8 @@ async function deleteWork(workId) {
 		method: "DELETE",
 		headers: {
 			"Authorization": "Bearer " + authentificationToken
-		},
-	});
+		},                                      
+	}); //Cette fonction supprime un projet en utilisant l'API en fonction de son ID, met à jour le DOM en conséquence et actualise les données.
 
 	// Si réponse de suppression de l'API est OK, alors on supprime le projet du DOM (Gallerie et Modale).
 	if (deleteResponse.ok) {
@@ -124,26 +124,26 @@ async function deleteWork(workId) {
 	} else {
 		return alert("Échec de la suppresion du projet");
 	};
-};
+}; // Si la réponse de suppression de l'API est positive, cette partie du code retire le projet du DOM et des données, sinon affiche une alerte d'échec.
 
 
 // Passage de la "MODALE" en mode formulaire d'ajout de projet si clique sur le bouton "Ajouter une photo" de la partie "Gallerie / suppresion de projet" de la "MODALE".
-// Ajout du Listener sur le bouton "Ajouter une photo" et SWITCH de la "MODALE" si cliqué.
+// Ajout du Listener sur le bouton "Ajouter une photo" et SWITCH de la "MODALE" si cliqué.---------------------------------------------------------
 const addPhotoButton = document.querySelector(".add-photo-button");
 
 addPhotoButton.addEventListener("click", function() {
 	const modalGallerySwitch = document.querySelector(".modal-content");
-	modalGallerySwitch.style.display = "none";
+	modalGallerySwitch.style.display = "none";  //Cette ligne de code modifie le style CSS de l'élément représentant la galerie dans la modale pour le masquer (non affiché)
 	const modalFormSwitch = document.querySelector(".modal-content-form");
 	modalFormSwitch.style.display = "flex";
 });
 
 
 // Gestion du "PREVIEW" de l'image choisie de "L'AJOUT DE PROJET" de la "MODALE".
-// Vérification de la taille du fichier et extensions autorisées définies dans le HTML.
+// Vérification de la taille du fichier et extensions autorisées définies dans le HTML.---------------------------------------------------------------
 const projectPhotoFileAddInputFormModale = document.querySelector("#project-photo-file-add-input");
 
-projectPhotoFileAddInputFormModale.addEventListener("change", function() {
+projectPhotoFileAddInputFormModale.addEventListener("change", function() {    //formulaire détection
 	
 	// Vérification de la taille du fichier image soumis dans le champs de la "MODALE".
 	if (projectPhotoFileAddInputFormModale.files[0].size <= 4 * 1024 * 1024) {
@@ -165,12 +165,12 @@ projectPhotoFileAddInputFormModale.addEventListener("change", function() {
 	} else {
 		projectPhotoFileAddInputFormModale.value = "";
 		return alert ("Taille de l'image supérieure à 4mo.")
-	};
-});
+	};  //Ce bloc de code vérifie si la taille de l'image sélectionnée pour l'ajout de projet dans la modale est inférieure ou égale à 4 Mo.
+});  //Si oui, il affiche la prévisualisation de l'image et permet à l'utilisateur de choisir une autre image en cas d'erreur. Sinon, il affiche une alerte indiquant que la taille de l'image est trop grande (> 4 Mo) et réinitialise la sélection du fichier
 
 
 // Injection de la liste des "CATEGORIES" dans la liste "SELECT" "#project-category" de la partie "Ajout de projet" de la "MODALE".
-// Copie du tableau de catégories récupéré précédement via le FETCH en enlevant l'index 0 (catégorie "TOUS").
+// Copie du tableau de catégories récupéré précédement via le FETCH en enlevant l'index 0 (catégorie "TOUS").--------------------------------------
 const categoriesModale = categories.slice(0);
 
 // Parcours des données de "categoriesModale" pour les ajouter au HTML et créer les options de la liste "SELECT" de la partie "Ajout de projet" de la "MODALE".
@@ -187,7 +187,7 @@ for (let i = 0; i < categoriesModale.length; i++) {
 };
 
 
-// Gestion de la validation du "FORM" de la "MODALE"
+// Gestion de la validation du "FORM" de la "MODALE"------------------------------------------------------------------------------------------------
 const projectTitleFormModale = document.querySelector("#project-title");
 const projectCategoryFormModale = document.querySelector("#project-category");
 const validButtonFormModale = document.querySelector(".valid-form");
@@ -205,8 +205,8 @@ validButtonFormModale.addEventListener("click", function(event) {
 
 
 // Préparation des données du nouveau projet et envoi sur l'API "http://localhost:5678/api/works".
-// Fonction d'ajout de projet.
-async function addWork() {
+// Fonction d'ajout de projet. // Envoi de nouvelles images à l'API, édition et suppression--------------------------------------------------------
+async function addWork() { 
 	// Création de l'objet formData
 	const formData = new FormData();
 	
@@ -215,7 +215,7 @@ async function addWork() {
 	formData.append("category", projectCategoryFormModale.value);
 
 	const addResponse = await fetch("http://localhost:5678/api/works/", {
-		method: "POST",
+		method: "POST",    //requêtes HTTP utilisées pour interagir avec un serveur et effectuer des opérations spécifiques sur les ressources.
 		headers: {
 			"Authorization": "Bearer " + authentificationToken,
 			accept: "application/json"			
